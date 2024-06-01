@@ -1,9 +1,10 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "Resource.hpp"
+#include "Recources.hpp"
 #include <map>
-#include <vector>
+
+namespace game {
 
 class Player {
 public:
@@ -20,5 +21,7 @@ private:
     int victoryPoints;
     std::map<Resource, int> resources;
 };
+
+} // namespace game
 
 #endif // PLAYER_HPP
