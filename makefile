@@ -4,7 +4,7 @@ VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 LDLIBS = -pthread
 
 
-SOURCES=Building.cpp Dice.cpp Player.cpp Recources.hpp 
+SOURCES=Building.cpp Dice.cpp Player.cpp Recources.hpp DevelopmentCard.hpp
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
 
 #run: demo
