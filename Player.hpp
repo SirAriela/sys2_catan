@@ -4,6 +4,7 @@
 #include "Recources.hpp"
 #include <map>
 #include <vector>
+#include "Point.hpp"
 #include "DevelopmentCard.hpp"
 
 namespace game
@@ -25,6 +26,7 @@ namespace game
     private:
         int id;
         int victoryPoints;
+        Point** points; //which points the player has a city or a settelment
         std::map<Resource, int> resources;
         std::vector<DevelopmentCard> developmentCards;
     };
