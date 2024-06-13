@@ -2,8 +2,6 @@
 #define TILE_HPP
 
 #include "Recources.hpp"
-#include "DevelopmentCard.hpp"
-#include "Point.hpp"
 #include <map>
 
 
@@ -33,7 +31,6 @@ private:
     int id;
     int number;
     Resource resource;
-    Point *points[6];
 };
 
 } 

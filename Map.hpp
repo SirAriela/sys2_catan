@@ -4,6 +4,9 @@
 #include "Player.hpp"
 #include "Dice.hpp"
 #include <vector>
+#include <cstddef>
+
+using namespace std;
 
 namespace game {
 class Point;
