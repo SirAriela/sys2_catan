@@ -24,13 +24,17 @@ public:
     void addSettlement(Player *player);
     //add city to the tile
     void addCity(Player *player);
-    //tell us who is on the tile (Dice tells who get the resources)
+    //tell us who is on the tile 
     const map<Player *, int> &getOccupants() const;
+    //add an occupant to the tile
+    void addOccupant(Player *player);
 
 private:
     int id;
     int number;
     Resource resource;
+    map<Player *, int> occupants;
+    int numberOfBuildings; // should be 6 or less
 };
 
 } 
