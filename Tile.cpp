@@ -3,6 +3,7 @@
 namespace game {
 void Tile::addSettlement(Player *player) {
     occupants[player] = 1;
+    
 };
 
 void Tile::addCity(Player *player) {
@@ -16,7 +17,7 @@ const map<Player *, int> &Tile::getOccupants() const {
 void Tile::addOccupant(Player *player) {
     if(numberOfBuildings < 6){
         numberOfBuildings++;
-        occupants[player] = numberOfBuildings;
+        occupants[player] = 1;
     }
     else{
         throw "Too many buildings on tile";

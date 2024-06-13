@@ -1,5 +1,6 @@
 
 #include "Player.hpp"
+#include "Tile.hpp" // Include the header file for 'Tile'
 
 namespace game
 {
@@ -33,4 +34,39 @@ namespace game
     {
         developmentCards.push_back(card);
     }
-} // namespace game
+
+    void Player::addSettlement(Point *point)
+    {
+        if (point->getBuilding() != BuildingType::None)
+        {
+            throw "Point already has a building";
+        }
+        else
+        {
+            std::vector<Tile> tiles = point->getTile();
+            for(auto &t : tiles){
+                t.addOccupant(this);
+            }
+            points.push_back(*point);
+            point->setBuilding(BuildingType::Settlement);
+        }
+    }
+
+    void Player::addCity(Point *point)
+    {
+        if (point->getBuilding() != BuildingType::None)
+        {
+            throw "Point already has a building";
+        }
+        else
+        {
+            std::vector<Tile> tiles = point->getTile();
+            for(auto &t : tiles){
+                t.addOccupant(this);
+            }
+            points.push_back(*point);
+            point->setBuilding(BuildingType::City);
+        }
+    }
+
+};
