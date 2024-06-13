@@ -4,14 +4,15 @@
 #include "Recources.hpp"
 #include <map>
 #include <vector>
-#include "Point.hpp"
 #include "DevelopmentCard.hpp"
 
 namespace game
 {
 
+   class Point;
     class Player
     {
+     
     public:
         Player(int id) : id(id), victoryPoints(0) {}
         int getId() const { return id; }

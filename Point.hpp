@@ -1,12 +1,15 @@
 #ifndef POIINT_HPP
 #define POIINT_HPP
 
+#pragma once
 
 #include "Building.hpp"
-#include "Tile.hpp"
 
 namespace game{
+    class Tile;
+
     class Point{
+   
         public:
             //tell us what tiles it is on, what building is on it, and what neighbors it has
             Tile **tile;

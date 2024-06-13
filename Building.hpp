@@ -3,7 +3,8 @@
 
 enum class BuildingType {
     Settlement,
-    City
+    City,
+    None
 };
 
 class Building {
