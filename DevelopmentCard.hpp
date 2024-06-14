@@ -10,17 +10,6 @@ enum class DevelopmentCardType {
     Monopoly,
     YearOfPlenty
 };
-
-class DevelopmentCard {
-public:
-    DevelopmentCard(DevelopmentCardType type) : type(type) {}
-
-    DevelopmentCardType getType() const { return type; }
-
-private:
-    DevelopmentCardType type;
-};
-
 }
 
 #endif // DEVELOPMENT_CARD_HPP

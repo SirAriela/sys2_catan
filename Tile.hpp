@@ -20,10 +20,7 @@ public:
     int getNumber() const { return number; }
     //get the id of the tile
     int getId() const { return id; }
-    //add settlement to the tile
-    void addSettlement(Player *player);
-    //add city to the tile
-    void addCity(Player *player);
+    
     //tell us who is on the tile 
     const map<Player *, int> &getOccupants() const;
     //add an occupant to the tile

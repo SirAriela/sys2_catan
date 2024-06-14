@@ -11,6 +11,7 @@ using namespace std;
 namespace game {
 class Point;
 class Tile;
+class Dice;
 class Map {
    
 public:
@@ -18,7 +19,6 @@ public:
     void setPlayer(Player *player);
     void setTile(Tile *tile);
     void setPoint(Point *point);
-    void setDice(Dice *dice);
     void setPlayers(Player **players, size_t size);
     void setTiles(Tile **tiles, size_t size);
     void setPoints(Point **points, size_t size);

@@ -6,14 +6,4 @@ enum class BuildingType {
     City,
     None
 };
-
-class Building {
-public:
-    Building(BuildingType type) : type(type) {}
-    BuildingType getType() const { return type; }
-
-private:
-    BuildingType type;
-};
-
 #endif

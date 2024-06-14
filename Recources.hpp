@@ -2,8 +2,17 @@
 #define RESOURCE_HPP
 #pragma once
 
-namespace game {
-enum class Resource { Wood, Brick, Wool, Wheat, Iron, None };
+namespace game
+{
+    enum class Resource
+    {
+        Wood,
+        Brick,
+        Wool,
+        Wheat,
+        Iron,
+        None
+    };
 }
 
-#endif // RESOURCE_HPP
+#endif

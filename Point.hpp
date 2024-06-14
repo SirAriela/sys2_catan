@@ -4,6 +4,7 @@
 #pragma once
 
 #include "Building.hpp"
+#include <vector>
 
 namespace game{
     class Tile;
@@ -12,19 +13,23 @@ namespace game{
    
         public:
             //tell us what tiles it is on, what building is on it, and what neighbors it has
-            Tile **tile;
-            Building building;
-            Point** neighbor;
-            
+            std::vector<Tile> tile;
+            BuildingType building;
+            std::vector<Point> neighbor;
+            std::vector<Point> roadsPossible;
 
             //create a point
-            Point(Tile **tile, Building building,Point** neighbor) : tile(tile), building(building), neighbor(neighbor) {}
+            Point(std::vector<Tile> tile, BuildingType building,std::vector<Point> neighbor) : tile(tile), building(building), neighbor(neighbor) {}
             //getters and setters
-            Tile **getTile() const { return tile; }
+            std::vector<Tile> getTile() const { return tile; }
             //get the building
-            Building getBuilding() const { return building; }
+            BuildingType getBuilding() const { return building; }
             // get the neighbors
-            Point** getNeighbor() const { return neighbor; }
+            std::vector<Point> getNeighbor() const { return neighbor; }
+            //set the building
+            void setBuilding(BuildingType building) { this->building = building; }
+            //get the roads that are possible
+            std::vector<Point> getroadsPossible() const { return roadsPossible; }
 };
 
 }
