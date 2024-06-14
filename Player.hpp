@@ -1,55 +1,84 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "Recources.hpp"
-#include <map>
-#include <vector>
 #include "DevelopmentCard.hpp"
+#include "Resource.hpp"
 #include "Road.hpp"
-#include "Point.hpp"
+#include <map>
+#include <string>
+#include <vector>
 
-namespace game
-{
+namespace game {
 
-    class Point;
-    class Player
-    {
+class Point;
+class Player {
 
-    public:
-        Player(int id) : id(id), victoryPoints(0) {}
-        int getId() const { return id; }
-        int getVictoryPoints() const { return victoryPoints; }
-        void addResource(Resource resource, int amount);
-        void useResource(Resource resource, int amount);
-        bool hasResources(const std::map<Resource, int> &cost) const;
-        void addVictoryPoints(int points) { victoryPoints += points; }
-        void addDevelopmentCard(DevelopmentCardType card);
-        const std::vector<DevelopmentCardType> &getDevelopmentCards() const { return developmentCards; }
-        // add settlement to the tile
-        void addSettlement(Point *point);
-        // add city to the tile
-        void addCity(Point *point);
-        // add road to the tile
-        void addRoad(Point *point1, Point *point2);
+public:
+  // Create a player
+  Player(int id, std::string name) : id(id), name(name), victoryPoints(0),points() {}
+  ~Player() = default;
+  //-------------------------------------------------------------------------
 
-        //--------------------------- costs ---------------------------
-        const std::map<Resource, int> ROAD_COST = {{Resource::Wood, 1}, {Resource::Brick, 1}};
-        const std::map<Resource, int> SETTLEMENT_COST = {{Resource::Wood, 1}, {Resource::Brick, 1}, {Resource::Wool, 1}, {Resource::Wheat, 1}};
-        const std::map<Resource, int> CITY_COST = {{Resource::Wheat, 2}, {Resource::Iron, 3}};
-        const std::map<Resource, int> DEVELOPMENT_CARD_COST = {{Resource::Wool, 1}, {Resource::Wheat, 1}, {Resource::Iron, 1}};
+  // getters
+  // get the id of the player
+  int getId() const { return id; }
+  // get the victory points of the player
+  int getVictoryPoints() const { return victoryPoints; }
+  // get development cards of the player
+  const std::vector<DevelopmentCardType> &getDevelopmentCards() const {
+    return developmentCards;
+  }
+  //-------------------------------------------------------------------------
 
+  // adders and substractors
+  //  add resources to the player
+  void addResource(Resource resource, int amount);
+  // remove resources from the player when on use
+  void useResource(Resource resource, int amount);
+  // checks if the player has enough resources to build a settlement or city or
+  // road or buy a development card
+  bool hasResources(const std::map<Resource, int> &cost) const;
+  // add victory points to the player
+  void addVictoryPoints(int points) { victoryPoints += points; }
+  // add development card to the player
+  void addDevelopmentCard(DevelopmentCardType card);
+  // add settlement to the tile
+  void addSettlement(Point *point);
+  // add city to the tile
+  void addCity(Point *point);
+  // add road to the tile
+  void addRoad(Point *point1, Point *point2);
 
-    private:
-        int id;
-        int victoryPoints;
-        std::vector<Point>points; // which points the player has a city or a settelment
-        std::vector<Road> roads;  // which roads the player has
-        std::map<Resource, int> resources;
-        std::vector<DevelopmentCardType> developmentCards;
-        int knights;//number of knights the player has
-       
-    };
+  //--------------------------- costs ---------------------------
+  const std::map<Resource, int> ROAD_COST = {{Resource::Wood, 1},
+                                             {Resource::Brick, 1}};
+
+  const std::map<Resource, int> SETTLEMENT_COST = {{Resource::Wood, 1},
+                                                   {Resource::Brick, 1},
+                                                   {Resource::Wool, 1},
+                                                   {Resource::Wheat, 1}};
+
+  const std::map<Resource, int> CITY_COST = {{Resource::Wheat, 2},
+                                             {Resource::Iron, 3}};
+
+  const std::map<Resource, int> DEVELOPMENT_CARD_COST = {
+      {Resource::Wool, 1}, {Resource::Wheat, 1}, {Resource::Iron, 1}};
+
+  //-------------------------------------------------------------------------
+private:
+  int id;            // id number
+  std::string name;  // name of the player
+  int victoryPoints; // number of victory points the player has
+  // which points the player has a city or a settelment on
+  std::vector<Point> points;
+  // which roads the player has
+  std::vector<Road> roads;
+  std::map<Resource, int> resources; // what resources the player has
+  std::vector<DevelopmentCardType>
+      developmentCards; // what development cards the player has
+  int knights;      // number of knights the player has
+};
 
 } // namespace game
 
-#endif // PLAYER_HPP
+#endif

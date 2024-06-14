@@ -1,5 +1,5 @@
-#ifndef RESOURCE_HPP
-#define RESOURCE_HPP
+#ifndef ENUMS_HPP
+#define ENUMS_HPP
 #pragma once
 
 namespace game
@@ -14,5 +14,6 @@ namespace game
         None
     };
 }
+
 
 #endif

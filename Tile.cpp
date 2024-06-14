@@ -2,11 +2,6 @@
 
 namespace game {
 
-
-const map<Player *, int> &Tile::getOccupants() const {
-    return occupants;
-};
-
 void Tile::addOccupant(Player *player) {
     if(numberOfBuildings < 6){
         numberOfBuildings++;
