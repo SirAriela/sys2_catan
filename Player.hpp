@@ -2,20 +2,31 @@
 #define PLAYER_HPP
 
 #include "DevelopmentCard.hpp"
+#include "Point.hpp"
 #include "Resource.hpp"
-#include "Road.hpp"
 #include <map>
 #include <string>
 #include <vector>
 
+#pragma once
+
 namespace game {
-
 class Point;
-class Player {
+class Road;
 
+class Player {
 public:
   // Create a player
-  Player(int id, std::string name) : id(id), name(name), victoryPoints(0),points() {}
+  Player(int id, std::string name)
+      : id(id), name(name), victoryPoints(0), roads(0), settlements(0),
+        cities(0), developmentCards({}), knights(0) {
+    for (auto i : ROAD_COST) {
+      addResource(i.first, i.second);
+    }
+    for (auto i : SETTLEMENT_COST) {
+      addResource(i.first, i.second);
+    }
+  }
   ~Player() = default;
   //-------------------------------------------------------------------------
 
@@ -28,6 +39,9 @@ public:
   const std::vector<DevelopmentCardType> &getDevelopmentCards() const {
     return developmentCards;
   }
+  // get name
+  std::string getName() const { return name; }
+
   //-------------------------------------------------------------------------
 
   // adders and substractors
@@ -69,14 +83,14 @@ private:
   int id;            // id number
   std::string name;  // name of the player
   int victoryPoints; // number of victory points the player has
-  // which points the player has a city or a settelment on
-  std::vector<Point> points;
   // which roads the player has
-  std::vector<Road> roads;
+  int roads;
+  int settlements;
+  int cities;
   std::map<Resource, int> resources; // what resources the player has
   std::vector<DevelopmentCardType>
       developmentCards; // what development cards the player has
-  int knights;      // number of knights the player has
+  int knights;          // number of knights the player has
 };
 
 } // namespace game

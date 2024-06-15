@@ -7,7 +7,7 @@
 namespace game {
 class Dice {
 public:
-  int roll();
+static int roll();
 };
 
 } 
