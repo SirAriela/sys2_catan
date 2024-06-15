@@ -85,12 +85,18 @@ public:
     return instance;
   }
 
+  void nextPlayer(){
+    turn = (turn + 1) % NUM_PLAYERS;
+    players[turn]->setPlaying(true);
+  }
+
   Map(const Map &) = delete;
   Map &operator=(const Map &) = delete;
 
 private:
   static const size_t NUM_PLAYERS = 3;
   static Map *instance;
+  size_t turn;
   std::vector<Player *> players;
   std::vector<Tile *> tiles;
   std::vector<Point *> points;

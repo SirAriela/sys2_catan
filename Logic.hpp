@@ -1,6 +1,5 @@
 #ifndef logic_HPP
 #define logic_HPP
-#pragma once
 
 #include "Map.hpp"
 #include "Player.hpp"
@@ -11,7 +10,7 @@ class Logic {
 public:
   static void getResorces(Map &map, int rollResult) {
     for (auto point : map.getPoints()) {
-      for (auto tile : point->getTile()) {
+      for (auto tile : point->getTiles()) {
         if (tile->getNumber() == rollResult) {
           if (point->getBuilding() == BuildingType::Settlement) {
             point->getOwner()->addResource(tile->getResource(), 1);

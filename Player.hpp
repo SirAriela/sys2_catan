@@ -2,6 +2,7 @@
 #define PLAYER_HPP
 
 #include "DevelopmentCard.hpp"
+#include "Dice.hpp"
 #include "Point.hpp"
 #include "Resource.hpp"
 #include <map>
@@ -97,7 +98,11 @@ public:
   const std::map<Resource, int> DEVELOPMENT_CARD_COST = {
       {Resource::Wool, 1}, {Resource::Wheat, 1}, {Resource::Iron, 1}};
 
-  //-------------------------------------------------------------------------
+  //---------------------------stuff player does----------------------------------------------
+  void endTurn();
+  void rollDice();
+  void printPoints();
+  
 private:
   int id;            // id number
   std::string name;  // name of the player
@@ -111,6 +116,7 @@ private:
       developmentCards; // what development cards the player has
   int knights;          // number of knights the player has
   bool isPlayig;        // if the player is playing
+  Dice dice;            // dice 
 };
 
 } // namespace game

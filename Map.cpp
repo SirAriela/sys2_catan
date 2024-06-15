@@ -13,6 +13,10 @@ Map::Map() {
   players = {};
   tiles = {};
   roadsInMap = {};
+  turn = 2;
+
+
+
   // Crate Tiles for map
   Tile *tile1 = new Tile(Resource::Iron, 0, 10);
   Tile *tile2 = new Tile(Resource::Wool, 1, 2);
