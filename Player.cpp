@@ -141,23 +141,23 @@ void Player::addRoad(Point *point1, Point *point2) {
   bool hasRoad = false;
 
   for (auto r : instance->getRoadInMap()) {
-    if (r.getPoint1() == point1 && r.getPoint2() == point2) {
+    if (r->getPoint1() == point1 && r->getPoint2() == point2) {
       std::__throw_runtime_error("Road already exists");
     }
   }
   for (auto r : instance->getRoadInMap()) {
-    if (r.getPoint1() == point2 && r.getPoint2() == point1) {
+    if (r->getPoint1() == point2 && r->getPoint2() == point1) {
       std::__throw_runtime_error("Road already exists");
     }
   }
   // check if there is a road attached to the point
   for (auto r : instance->getRoadInMap()) {
-    if (r.getOwner() == this) {
-      if ((r.getPoint1() == point1 && r.getPoint2() != point2) ||
-          (r.getPoint2() == point1 && r.getPoint1() != point2) ||
-          (r.getPoint1() == point2 && r.getPoint2() != point1) ||
-          (r.getPoint2() == point2 && r.getPoint1() != point1)) {
-        if (r.getOwner() == this) {
+    if (r->getOwner() == this) {
+      if ((r->getPoint1() == point1 && r->getPoint2() != point2) ||
+          (r->getPoint2() == point1 && r->getPoint1() != point2) ||
+          (r->getPoint1() == point2 && r->getPoint2() != point1) ||
+          (r->getPoint2() == point2 && r->getPoint1() != point1)) {
+        if (r->getOwner() == this) {
           hasRoad = true;
         }
       }
@@ -180,7 +180,8 @@ void Player::addRoad(Point *point1, Point *point2) {
     Road *otherway = new Road(point2, point1, this);
     roads++;
 
-    instance->addRoadInMap(*road);
+    instance->addRoadInMap(road);
+    instance->addRoadInMap(otherway);
 
   } else {
     __throw_runtime_error("Not enough resources");

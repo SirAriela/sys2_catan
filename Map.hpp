@@ -3,24 +3,34 @@
 
 #include <cstddef>
 
+#include "Road.hpp"
 #include <stdexcept>
 #include <vector>
-#include "Road.hpp"
 #pragma once
 
 using namespace std;
 
 namespace game {
-class Point;  
-class Player; 
-class Tile;   
+class Point;
+class Player;
+class Tile;
 class Road;
 class Map {
 
 public:
   // Create and destroy a map
   Map();
-  ~Map() = default;
+  ~Map() {
+    for (Tile *tile : tiles) {
+      delete tile;
+    }
+    for (Point *point : points) {
+      delete point;
+    }
+    for (Road *road : roadsInMap) {
+      delete road;
+    }
+  }
 
   //-------------------------------------------------------------------------
 
@@ -66,18 +76,18 @@ public:
     }
   };
   // get roads from that point
-  std::vector<Road> getRoadInMap() const {
+  std::vector<Road *> getRoadInMap() const {
     if (roadsInMap.size() > 0)
       return roadsInMap;
     else
       return {};
   }
   // add road to that point
-  void addRoadInMap(Road road) { this->roadsInMap.push_back(road); }
+  void addRoadInMap(Road* road) { this->roadsInMap.push_back(road); }
 
   //-------------------------------------------------------------------------
 
-  static Map* getInstance() {
+  static Map *getInstance() {
     // If the instance doesn't exist, create it
     if (!instance) {
       instance = new Map();
@@ -85,7 +95,7 @@ public:
     return instance;
   }
 
-  void nextPlayer(){
+  void nextPlayer() {
     turn = (turn + 1) % NUM_PLAYERS;
     players[turn]->setPlaying(true);
   }
@@ -100,7 +110,7 @@ private:
   std::vector<Player *> players;
   std::vector<Tile *> tiles;
   std::vector<Point *> points;
-  std::vector<Road> roadsInMap;
+  std::vector<Road *> roadsInMap;
 };
 
 } // namespace game
