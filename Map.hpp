@@ -1,22 +1,20 @@
 #ifndef MAP_HPP
 #define MAP_HPP
-#include "Dice.hpp"
-#include "Player.hpp"
-#include "Tile.hpp"
-#include "Road.hpp"
-#include "Point.hpp"
+
 #include <cstddef>
-#include <iostream>
+
 #include <stdexcept>
 #include <vector>
+#include "Road.hpp"
 #pragma once
 
 using namespace std;
 
 namespace game {
-class Point;
-class Tile;
-class Dice;
+class Point;  
+class Player; 
+class Tile;   
+class Road;
 class Map {
 
 public:
@@ -56,8 +54,6 @@ public:
     if (id < points.size()) {
       return points[id];
     } else {
-      std::cout << "points.size() = " << points.size() << std::endl;
-      std::cout << id << std::endl;
       return nullptr;
     }
   };
@@ -69,7 +65,7 @@ public:
       return {};
     }
   };
-   // get roads from that point
+  // get roads from that point
   std::vector<Road> getRoadInMap() const {
     if (roadsInMap.size() > 0)
       return roadsInMap;
@@ -81,12 +77,12 @@ public:
 
   //-------------------------------------------------------------------------
 
-  static Map &getInstance() {
+  static Map* getInstance() {
     // If the instance doesn't exist, create it
     if (!instance) {
       instance = new Map();
     }
-    return *instance;
+    return instance;
   }
 
   Map(const Map &) = delete;
@@ -99,7 +95,6 @@ private:
   std::vector<Tile *> tiles;
   std::vector<Point *> points;
   std::vector<Road> roadsInMap;
-  Dice *dice;
 };
 
 } // namespace game

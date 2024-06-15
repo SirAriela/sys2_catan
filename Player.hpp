@@ -19,14 +19,21 @@ public:
   // Create a player
   Player(int id, std::string name)
       : id(id), name(name), victoryPoints(0), roads(0), settlements(0),
-        cities(0), developmentCards({}), knights(0) {
+        cities(0), developmentCards({}), knights(0),isPlayig(false) {
+    for (auto i : ROAD_COST) {
+      addResource(i.first, i.second);
+    }
     for (auto i : ROAD_COST) {
       addResource(i.first, i.second);
     }
     for (auto i : SETTLEMENT_COST) {
       addResource(i.first, i.second);
     }
+    for (auto i : SETTLEMENT_COST) {
+      addResource(i.first, i.second);
+    }
   }
+  Player() = default;
   ~Player() = default;
   //-------------------------------------------------------------------------
 
@@ -41,6 +48,16 @@ public:
   }
   // get name
   std::string getName() const { return name; }
+  //get number of roads
+  int getRoads() const { return roads; }
+  //get number of settlements
+  int getSettlements() const { return settlements; }
+  //get number of cities
+  int getCities() const { return cities; }
+  // get number of knights
+  int getKnights() const { return knights; }
+  //get is playing
+  bool getIsPlaying() const { return isPlayig; }
 
   //-------------------------------------------------------------------------
 
@@ -62,6 +79,8 @@ public:
   void addCity(Point *point);
   // add road to the tile
   void addRoad(Point *point1, Point *point2);
+  //set the player to playing
+  void setPlaying(bool playing) { isPlayig = playing; }
 
   //--------------------------- costs ---------------------------
   const std::map<Resource, int> ROAD_COST = {{Resource::Wood, 1},
@@ -91,6 +110,7 @@ private:
   std::vector<DevelopmentCardType>
       developmentCards; // what development cards the player has
   int knights;          // number of knights the player has
+  bool isPlayig;        // if the player is playing
 };
 
 } // namespace game

@@ -1,7 +1,7 @@
 
 #include "Player.hpp"
+#include "Map.hpp"
 #include "Road.hpp"
-#include <iostream>
 
 namespace game {
 
@@ -70,12 +70,9 @@ void Player::addSettlement(Point *point) {
         useResource(Resource::Wheat, 1);
 
         // updates the tiles that the player has a settlement on
-        std::vector<Tile *> tiles = point->getTile();
-        cout<< tiles.at(0)->getNumber() << endl;
+        std::vector<Tile *> tiles = point->getTiles();
         for (auto t : tiles) {
-          cout << t->getNumber() << endl;
           t->addOccupant(this->getId());
-          cout << this->getId() << endl;
         }
 
         // // updates the points that the player has a settlement on
@@ -88,6 +85,7 @@ void Player::addSettlement(Point *point) {
 
         // updates the victory points of the player
         victoryPoints++;
+        settlements++;
       } else {
         __throw_runtime_error("Not enough resources to buy a settlement");
       }
@@ -120,27 +118,51 @@ void Player::addCity(game::Point *point) {
   }
 }
 
-// TODO:
-//  needs to add more conditions and validations
-// check if there a roads that attached to it from same owner
-
 // add a road to the player
 void Player::addRoad(Point *point1, Point *point2) {
-  if (point1->getBuilding() == BuildingType::None &&
-      point2->getBuilding() == BuildingType::None) {
+  game::Map *instance = Map::getInstance();
+  bool hasRoad = false;
 
-    std::__throw_runtime_error("No building on the points");
+  for (auto r : instance->getRoadInMap()) {
+    if (r.getPoint1() == point1 && r.getPoint2() == point2) {
+      std::__throw_runtime_error("Road already exists");
+    }
   }
+  for (auto r : instance->getRoadInMap()) {
+    if (r.getPoint1() == point2 && r.getPoint2() == point1) {
+      std::__throw_runtime_error("Road already exists");
+    }
+  }
+  // check if there is a road attached to the point
+  for (auto r : instance->getRoadInMap()) {
+    if (r.getOwner() == this) {
+      if ((r.getPoint1() == point1 && r.getPoint2() != point2) ||
+          (r.getPoint2() == point1 && r.getPoint1() != point2) ||
+          (r.getPoint1() == point2 && r.getPoint2() != point1) ||
+          (r.getPoint2() == point2 && r.getPoint1() != point1)) {
+        if (r.getOwner() == this) {
+          hasRoad = true;
+        }
+      }
+    }
+  }
+  if (!(point1->getOwner() != this && point2->getOwner() != this))
+    hasRoad = true;
 
+  if (!hasRoad) {
+    std::__throw_runtime_error("No road attached to the point and the point is not owned by the player");
+  }
   if (hasResources(ROAD_COST)) {
     // buy the road
     useResource(Resource::Wood, 1);
     useResource(Resource::Brick, 1);
 
     // add the road to the player
-    Road road(point1, point2, this);
-    Road otherway(point2, point1, this);
+    Road *road = new Road(point1, point2, this);
+    Road *otherway = new Road(point2, point1, this);
     roads++;
+
+    instance->addRoadInMap(*road);
 
   } else {
     __throw_runtime_error("Not enough resources");
