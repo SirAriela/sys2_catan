@@ -15,12 +15,14 @@ namespace game {
 class Point;
 class Road;
 
+
 class Player {
 public:
   // Create a player
   Player(int id, std::string name)
       : id(id), name(name), victoryPoints(0), roads(0), settlements(0),
-        cities(0), developmentCards({}), knights(0),isPlayig(false) {
+        cities(0), developmentCards({}), knights(0),monopoly(0),roadBuilding(0),
+        yearOfPlenty(0),isPlayig(false) {
     for (auto i : ROAD_COST) {
       addResource(i.first, i.second);
     }
@@ -31,11 +33,16 @@ public:
       addResource(i.first, i.second);
     }
     for (auto i : SETTLEMENT_COST) {
+      addResource(i.first, i.second);
+    }
+    for(auto i: DEVELOPMENT_CARD_COST){
       addResource(i.first, i.second);
     }
   }
   Player() = default;
-  ~Player() = default;
+  ~Player(){
+    
+  }
   //-------------------------------------------------------------------------
 
   // getters
@@ -59,6 +66,8 @@ public:
   int getKnights() const { return knights; }
   //get is playing
   bool getIsPlaying() const { return isPlayig; }
+  //grt resources
+  const std::map<Resource, int> &getResources() const { return resources; }
 
   //-------------------------------------------------------------------------
 
@@ -82,6 +91,8 @@ public:
   void addRoad(Point *point1, Point *point2);
   //set the player to playing
   void setPlaying(bool playing) { isPlayig = playing; }
+  //discard half of the resources
+  void discardHalfResources();
 
   //--------------------------- costs ---------------------------
   const std::map<Resource, int> ROAD_COST = {{Resource::Wood, 1},
@@ -115,6 +126,9 @@ private:
   std::vector<DevelopmentCardType>
       developmentCards; // what development cards the player has
   int knights;          // number of knights the player has
+  int monopoly;         // number of monopoly cards the player has
+  int roadBuilding;     // number of road building cards the player has
+  int yearOfPlenty;     // number of year of plenty cards the player has
   bool isPlayig;        // if the player is playing
   Dice dice;            // dice 
 };

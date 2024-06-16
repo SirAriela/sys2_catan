@@ -4,13 +4,13 @@ VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 LDLIBS = -pthread
 
 
-SOURCES= Building.hpp Dice.cpp Point.hpp Player.cpp Recource.hpp DevelopmentCard.hpp Tile.cpp Road.hpp Map.cpp Demo.cpp
+SOURCES= Building.hpp Dice.cpp Point.hpp Player.cpp Recource.hpp DevelopmentCard.hpp Tile.cpp Road.hpp Map.cpp Demo.cpp Deck.cpp 
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
 
 #run: demo
 #	./$^
 
-demo:Demo.o Dice.o Player.o Map.o Tile.o 
+demo:Demo.o Dice.o Player.o Map.o Tile.o Deck.o
 	$(CXX) $(CXXFLAGS) $^ -o demo
 
 #test: TestCounter.o Test.o $(OBJECTS)

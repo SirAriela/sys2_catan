@@ -37,17 +37,36 @@ void Player::addDevelopmentCard(DevelopmentCardType card) {
     useResource(Resource::Wheat, 1);
     useResource(Resource::Iron, 1);
 
-    // add the card to the player
-    developmentCards.push_back(card);
+    cout << "player " << this->getName() << " got a development card" << endl;
 
-    // if the card is a victory point card, add a victory point
+    if (card == DevelopmentCardType::Knight) {
+      knights++;
+      if (knights >= 3) {
+        victoryPoints += 2;
+      }
+    }
     if (card == DevelopmentCardType::VictoryPoint) {
       victoryPoints++;
+      cout << "player " << this->getName() << " got a victory point card"
+           << endl;
     }
-    if (card == DevelopmentCardType::Knight) {
-      // add the knight to the player
-      knights++;
+    if (card == DevelopmentCardType::Monopoly) {
+      cout << "player " << this->getName() << " got a monopoly card" << endl;
+      monopoly++;
     }
+    if (card == DevelopmentCardType::RoadBuilding) {
+      cout << "player " << this->getName() << " got a road building card"
+           << endl;
+      roadBuilding++;
+    }
+    if (card == DevelopmentCardType::YearOfPlenty) {
+      cout << "player " << this->getName() << " got a year of plenty card"
+           << endl;
+      yearOfPlenty++;
+    }
+
+    // add the card to the player
+    developmentCards.push_back(card);
 
   } else {
     std::__throw_runtime_error("Not enough resources");
@@ -188,11 +207,32 @@ void Player::addRoad(Point *point1, Point *point2) {
   }
 }
 
+// discard half of the resources
+void Player::discardHalfResources() {
+  int total = resources.size() / 2 ;
+  for (auto resource : resources) {
+    if (total > 0) {
+      resources.erase(resource.first);
+      total--;
+    }
+  }
+ 
+}
+
 // rolls the dice
 void Player::rollDice() {
   int roll = dice.roll();
   std::cout << "Rolled a " << roll << std::endl;
-  Logic::getResorces(*Map::getInstance(), roll);
+  if (roll != 7){
+    Logic::getResorces(*Map::getInstance(), roll);
+  }
+  else{
+    for(auto player : Map::getInstance()->getPlayers()){
+      if(player->getResources().size() > 7){
+        player->discardHalfResources();
+      }
+    }
+  }
 }
 void Player::printPoints() {
   int victoryPointsFromDevCards = 0;

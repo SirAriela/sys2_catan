@@ -1,7 +1,9 @@
 // 206862666
 // Ariela
 
+#include "Deck.hpp"
 #include "Map.hpp"
+#include "Player.hpp"
 #include <cstddef>
 #include <iostream>
 #include <string>
@@ -10,7 +12,10 @@ using namespace game;
 
 int main() {
   try {
+    srand(time(0));
     game::Map *map = game::Map::getInstance();
+    Deck *deck = Deck::getInstance();
+
     if (!map) {
       std::cerr << "Failed to get map instance." << std::endl;
       return 1; // Or handle error appropriately
@@ -59,8 +64,11 @@ int main() {
 
     cout << "player " << player1.getName() << " turn" << endl;
     player1.rollDice();
+   
+
+    player1.addDevelopmentCard(deck->drawCard());
     player1.printPoints();
-    
+    player1.endTurn();
   } catch (const std::exception &e) {
     std::cerr << "Exception caught: " << e.what() << std::endl;
     return 1;
