@@ -1,11 +1,12 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include <cstddef>
-
 #include "Road.hpp"
+#include "Robber.hpp"
+#include <cstddef>
 #include <stdexcept>
 #include <vector>
+
 #pragma once
 
 using namespace std;
@@ -14,7 +15,6 @@ namespace game {
 class Point;
 class Player;
 class Tile;
-class Road;
 class Map {
 
 public:
@@ -30,6 +30,7 @@ public:
     for (Road *road : roadsInMap) {
       delete road;
     }
+    delete robber;
   }
 
   //-------------------------------------------------------------------------
@@ -83,7 +84,10 @@ public:
       return {};
   }
   // add road to that point
-  void addRoadInMap(Road* road) { this->roadsInMap.push_back(road); }
+  void addRoadInMap(Road *road) { this->roadsInMap.push_back(road); }
+  //get robber
+  Robber *getRobber() const { return robber; }
+
 
   //-------------------------------------------------------------------------
 
@@ -111,6 +115,7 @@ private:
   std::vector<Tile *> tiles;
   std::vector<Point *> points;
   std::vector<Road *> roadsInMap;
+  Robber *robber;
 };
 
 } // namespace game

@@ -3,6 +3,7 @@
 #include "Player.hpp"
 #include "Point.hpp"
 #include "Road.hpp"
+#include "Robber.hpp"
 #include "Tile.hpp"
 
 namespace game {
@@ -37,6 +38,8 @@ Map::Map() {
   Tile *tile17 = new Tile(Resource::Brick, 16, 5);
   Tile *tile18 = new Tile(Resource::Wheat, 17, 6);
   Tile *tile19 = new Tile(Resource::Wool, 18, 11);
+
+ robber = new Robber(tile10);
 
   addTile(tile1);
   addTile(tile2);
