@@ -221,6 +221,9 @@ void Player::discardHalfResources() {
 
 // rolls the dice
 void Player::rollDice() {
+  if(!this->getIsPlaying()){
+    throw("not your turn to play " + this->getName());
+  }
   int roll = dice.roll();
   std::cout << "Rolled a " << roll << std::endl;
   if (roll != 7){
