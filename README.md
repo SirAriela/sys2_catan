@@ -11,3 +11,4 @@ Logic-
 •	The players do their move and updates the map
 
 
+![Map P1](https://github.com/SirAriela/sys2_catan/assets/25841033/989791fe-4d72-468a-a6fc-dba4196009a7)
